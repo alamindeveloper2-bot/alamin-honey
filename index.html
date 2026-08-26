@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amber & Comb — Raw, Single-Origin Honey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2B1904;
+    --wood:#4A2E0A;
+    --cream:#FFF6E4;
+    --cream-2:#FFEFCF;
+    --gold:#E2A227;
+    --gold-deep:#B8651B;
+    --hive:#1E1300;
+    --line:rgba(43,25,4,0.14);
+    --max:1180px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Jost',sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    font-weight:300;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{font-family:'Fraunces',serif;font-weight:600;line-height:1.08;letter-spacing:-0.01em;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    font-family:'Jost',sans-serif;font-size:12.5px;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--gold-deep);font-weight:500;display:inline-flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--gold-deep);display:inline-block;}
+  section{position:relative;}
+  ::selection{background:var(--gold);color:var(--hive);}
+
+  /* honeycomb signature texture */
+  .comb-bg{
+    position:absolute;inset:0;pointer-events:none;opacity:0.5;
+    background-image:
+      radial-gradient(circle at 50% 50%, transparent 0 34%, rgba(226,162,39,0.10) 34% 36%, transparent 36%);
+    background-size:70px 122px;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(255,246,228,0.86);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:var(--max);margin:0 auto;}
+  .logo{font-family:'Fraunces',serif;font-weight:700;font-size:21px;display:flex;align-items:center;gap:9px;letter-spacing:-0.01em;}
+  .logo svg{width:26px;height:26px;flex-shrink:0;}
+  .nav-links{display:flex;gap:36px;font-size:14.5px;}
+  .nav-links a{position:relative;padding:4px 0;}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--gold-deep);transition:width .25s ease;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    background:var(--hive);color:var(--cream);padding:11px 24px;border-radius:100px;
+    font-size:13.5px;letter-spacing:0.03em;transition:background .25s ease, transform .25s ease;
+  }
+  .nav-cta:hover{background:var(--gold-deep);transform:translateY(-1px);}
+  .burger{display:none;background:none;border:none;cursor:pointer;padding:6px;}
+  .burger span{display:block;width:24px;height:2px;background:var(--ink);margin:5px 0;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:168px 0 100px;
+    background:linear-gradient(180deg,var(--cream) 0%, var(--cream-2) 100%);
+    overflow:hidden;
+  }
+  .hero .wrap{display:grid;grid-template-columns:1.05fr 0.95fr;gap:60px;align-items:center;position:relative;z-index:2;}
+  .hero h1{font-size:clamp(42px,5.4vw,68px);margin:18px 0 22px;}
+  .hero h1 em{font-style:italic;color:var(--gold-deep);}
+  .hero p.lead{font-size:18px;color:var(--wood);max-width:460px;margin-bottom:34px;}
+  .btn-row{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:100px;
+    font-size:14.5px;letter-spacing:0.02em;font-weight:500;transition:all .25s ease;border:1px solid transparent;
+  }
+  .btn-primary{background:var(--gold-deep);color:var(--cream);}
+  .btn-primary:hover{background:var(--hive);transform:translateY(-2px);}
+  .btn-ghost{border-color:var(--ink);color:var(--ink);}
+  .btn-ghost:hover{background:var(--ink);color:var(--cream);}
+
+  .hero-stats{display:flex;gap:36px;margin-top:52px;padding-top:32px;border-top:1px solid var(--line);}
+  .hero-stats .num{font-family:'Fraunces',serif;font-size:30px;font-weight:600;color:var(--gold-deep);}
+  .hero-stats .lbl{font-size:12.5px;color:var(--wood);letter-spacing:0.02em;}
+
+  .hero-visual{position:relative;}
+  .jar-frame{
+    position:relative;width:100%;aspect-ratio:1/1.08;
+    clip-path:polygon(25% 2%,75% 2%,100% 25%,100% 75%,75% 98%,25% 98%,0% 75%,0% 25%);
+    box-shadow:0 40px 70px -30px rgba(43,25,4,0.35);
+  }
+  .jar-frame img{width:100%;height:100%;object-fit:cover;}
+  .drip{
+    position:absolute;left:50%;bottom:-1px;transform:translateX(-50%);
+    width:34px;height:56px;z-index:3;
+  }
+  .float-card{
+    position:absolute;background:var(--cream);border-radius:16px;padding:16px 20px;
+    box-shadow:0 20px 45px -18px rgba(43,25,4,0.28);display:flex;align-items:center;gap:12px;
+    border:1px solid var(--line);
+  }
+  .float-card svg{width:30px;height:30px;flex-shrink:0;color:var(--gold-deep);}
+  .float-card .t{font-size:13px;font-weight:500;color:var(--ink);}
+  .float-card .s{font-size:11.5px;color:var(--wood);opacity:0.75;}
+  .fc-1{top:6%;left:-8%;animation:float 5s ease-in-out infinite;}
+  .fc-2{bottom:8%;right:-10%;animation:float 5s ease-in-out infinite 1.2s;}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+
+  /* ---------- Marquee strip ---------- */
+  .strip{background:var(--hive);color:var(--cream-2);padding:16px 0;overflow:hidden;white-space:nowrap;}
+  .strip-track{display:inline-flex;gap:56px;animation:scroll 26s linear infinite;font-family:'Fraunces',serif;font-style:italic;font-size:16px;}
+  .strip-track span{opacity:0.85;}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ---------- Section heads ---------- */
+  .sec-head{max-width:560px;margin-bottom:56px;}
+  .sec-head h2{font-size:clamp(30px,3.6vw,44px);margin-top:16px;}
+  .sec-head p{color:var(--wood);font-size:16px;margin-top:14px;}
+  .center{text-align:center;margin-left:auto;margin-right:auto;}
+
+  /* ---------- Story ---------- */
+  .story{padding:110px 0;}
+  .story .wrap{display:grid;grid-template-columns:0.85fr 1.15fr;gap:70px;align-items:center;}
+  .story-img{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 30px 60px -30px rgba(43,25,4,0.3);}
+  .story-img img{width:100%;height:100%;object-fit:cover;}
+  .story-copy p{color:var(--wood);margin-bottom:16px;font-size:16px;}
+  .story-copy p:last-of-type{margin-bottom:0;}
+  .signature-line{margin-top:28px;font-family:'Fraunces',serif;font-style:italic;font-size:20px;color:var(--gold-deep);}
+
+  /* ---------- Varieties ---------- */
+  .varieties{padding:110px 0;background:var(--cream-2);}
+  .var-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .var-card{
+    background:var(--cream);border-radius:20px;overflow:hidden;border:1px solid var(--line);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .var-card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -24px rgba(43,25,4,0.28);}
+  .var-img{aspect-ratio:5/4;overflow:hidden;position:relative;}
+  .var-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+  .var-card:hover .var-img img{transform:scale(1.06);}
+  .var-tag{
+    position:absolute;top:14px;left:14px;background:var(--cream);color:var(--gold-deep);
+    font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:6px 12px;border-radius:100px;font-weight:500;
+  }
+  .var-body{padding:24px 24px 26px;}
+  .var-body h3{font-size:21px;margin-bottom:8px;}
+  .var-body p{font-size:14.5px;color:var(--wood);margin-bottom:16px;}
+  .var-foot{display:flex;align-items:center;justify-content:space-between;}
+  .price{font-family:'Fraunces',serif;font-size:19px;font-weight:600;}
+  .price span{font-size:12px;font-weight:400;color:var(--wood);}
+  .var-link{font-size:13px;font-weight:500;color:var(--gold-deep);display:inline-flex;align-items:center;gap:5px;}
+
+  /* ---------- Process (real sequence — bee to jar) ---------- */
+  .process{padding:110px 0;}
+  .process-track{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:20px;}
+  .process-track::before{
+    content:"";position:absolute;top:26px;left:6%;right:6%;height:1px;
+    background:repeating-linear-gradient(90deg,var(--gold-deep) 0 8px, transparent 8px 16px);
+  }
+  .p-step{padding:0 20px;position:relative;}
+  .p-num{
+    width:52px;height:52px;border-radius:50%;background:var(--cream);border:1.5px solid var(--gold-deep);
+    display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:600;
+    color:var(--gold-deep);font-size:18px;margin-bottom:22px;position:relative;z-index:2;
+  }
+  .p-step h4{font-size:18px;margin-bottom:8px;}
+  .p-step p{font-size:14px;color:var(--wood);}
+
+  /* ---------- Benefits ---------- */
+  .benefits{padding:110px 0;background:var(--hive);color:var(--cream-2);}
+  .benefits .eyebrow{color:var(--gold);}
+  .benefits .eyebrow::before{background:var(--gold);}
+  .benefits .sec-head h2{color:var(--cream);}
+  .benefits .sec-head p{color:rgba(255,246,228,0.65);}
+  .b-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,246,228,0.14);border-radius:20px;overflow:hidden;}
+  .b-card{background:var(--hive);padding:34px 26px;}
+  .b-card svg{width:34px;height:34px;color:var(--gold);margin-bottom:20px;}
+  .b-card h4{color:var(--cream);font-size:18px;margin-bottom:10px;}
+  .b-card p{font-size:14px;color:rgba(255,246,228,0.62);}
+
+  /* ---------- Testimonials ---------- */
+  .testimonials{padding:110px 0;}
+  .t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .t-card{background:var(--cream-2);border-radius:20px;padding:32px 28px;border:1px solid var(--line);}
+  .stars{display:flex;gap:3px;margin-bottom:18px;color:var(--gold-deep);}
+  .stars svg{width:15px;height:15px;}
+  .t-card p.quote{font-size:15.5px;color:var(--wood);margin-bottom:24px;}
+  .t-person{display:flex;align-items:center;gap:12px;}
+  .t-avatar{width:42px;height:42px;border-radius:50%;overflow:hidden;flex-shrink:0;}
+  .t-avatar img{width:100%;height:100%;object-fit:cover;}
+  .t-name{font-size:14px;font-weight:500;}
+  .t-role{font-size:12px;color:var(--wood);opacity:0.75;}
+
+  /* ---------- Newsletter CTA ---------- */
+  .cta{padding:100px 0;position:relative;overflow:hidden;background:var(--gold-deep);}
+  .cta .wrap{position:relative;z-index:2;text-align:center;max-width:640px;}
+  .cta h2{color:var(--cream);font-size:clamp(30px,4vw,42px);margin-bottom:16px;}
+  .cta p{color:rgba(255,246,228,0.85);font-size:16px;margin-bottom:34px;}
+  .cta-form{display:flex;gap:12px;max-width:440px;margin:0 auto;}
+  .cta-form input{
+    flex:1;padding:15px 20px;border-radius:100px;border:none;font-family:'Jost',sans-serif;font-size:14.5px;outline:none;
+  }
+  .cta-form button{
+    background:var(--hive);color:var(--cream);border:none;padding:15px 28px;border-radius:100px;
+    font-size:14.5px;font-weight:500;cursor:pointer;transition:transform .2s ease, background .2s ease;
+    white-space:nowrap;
+  }
+  .cta-form button:hover{background:var(--ink);transform:translateY(-2px);}
+  .form-note{font-size:12.5px;color:rgba(255,246,228,0.7);margin-top:14px;}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--hive);color:rgba(255,246,228,0.7);padding:70px 0 28px;}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:44px;padding-bottom:48px;border-bottom:1px solid rgba(255,246,228,0.12);}
+  .foot-logo{font-family:'Fraunces',serif;font-weight:700;color:var(--cream);font-size:21px;display:flex;align-items:center;gap:9px;margin-bottom:14px;}
+  .foot-logo svg{width:24px;height:24px;}
+  .foot-about{font-size:13.5px;max-width:280px;line-height:1.7;}
+  .foot-col h5{color:var(--cream);font-size:13px;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:16px;font-weight:500;}
+  .foot-col a{display:block;font-size:14px;margin-bottom:11px;transition:color .2s ease;}
+  .foot-col a:hover{color:var(--gold);}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;font-size:12.5px;flex-wrap:wrap;gap:12px;}
+  .socials{display:flex;gap:14px;}
+  .socials a{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,246,228,0.2);display:flex;align-items:center;justify-content:center;}
+  .socials a:hover{border-color:var(--gold);color:var(--gold);}
+  .socials svg{width:15px;height:15px;}
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .fc-1,.fc-2,.strip-track{animation:none;}
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1000px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero-visual{max-width:420px;margin:0 auto;order:-1;}
+    .story .wrap{grid-template-columns:1fr;}
+    .story-img{max-width:420px;margin:0 auto;}
+    .var-grid{grid-template-columns:repeat(2,1fr);}
+    .process-track{grid-template-columns:repeat(2,1fr);row-gap:44px;}
+    .process-track::before{display:none;}
+    .b-grid{grid-template-columns:repeat(2,1fr);}
+    .t-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr;row-gap:36px;}
+  }
+  @media (max-width:720px){
+    .nav-links,.nav-cta{display:none;}
+    .burger{display:block;}
+    .hero{padding:130px 0 70px;}
+    .hero-stats{gap:24px;flex-wrap:wrap;}
+    .var-grid{grid-template-columns:1fr;}
+    .b-grid{grid-template-columns:1fr;}
+    .cta-form{flex-direction:column;}
+    .foot-grid{grid-template-columns:1fr;}
+    .foot-bottom{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <nav class="nav">
+    <a href="#" class="logo">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 20 6.5v11L12 22 4 17.5v-11L12 2Z" stroke="#B8651B" stroke-width="1.4"/><circle cx="12" cy="12" r="3.4" fill="#E2A227"/></svg>
+      Amber &amp; Comb
+    </a>
+    <div class="nav-links">
+      <a href="#story">Our Story</a>
+      <a href="#varieties">Varieties</a>
+      <a href="#process">Process</a>
+      <a href="#reviews">Reviews</a>
+    </div>
+    <a href="#cta" class="nav-cta">Shop the Harvest</a>
+    <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="comb-bg"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Small-Batch &middot; Single-Origin</span>
+      <h1>Honey the way <em>the hive</em> intended.</h1>
+      <p class="lead">Raw, unfiltered, and cold-extracted from wildflower meadows we tend by hand. Nothing added, nothing heated — just what the bees made.</p>
+      <div class="btn-row">
+        <a href="#varieties" class="btn btn-primary">
+          Explore Varieties
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#story" class="btn btn-ghost">Meet the Beekeepers</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="num">40+</div><div class="lbl">Wildflower Acres</div></div>
+        <div><div class="num">12</div><div class="lbl">Honey Varieties</div></div>
+        <div><div class="num">0%</div><div class="lbl">Additives, Ever</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="jar-frame">
+        <img src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?q=80&w=900&auto=format&fit=crop" alt="Jar of raw golden honey with a wooden dipper">
+      </div>
+      <div class="float-card fc-1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21c-4.5-3-8-6.5-8-10.5A5.5 5.5 0 0 1 9.5 5c1.6 0 2.5 1 2.5 1s.9-1 2.5-1A5.5 5.5 0 0 1 20 10.5C20 14.5 16.5 18 12 21Z"/></svg>
+        <div><div class="t">100% Raw</div><div class="s">Never heated or filtered</div></div>
+      </div>
+      <div class="float-card fc-2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <div><div class="t">Harvested Aug 2026</div><div class="s">This season's batch</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE STRIP ============ -->
+<div class="strip">
+  <div class="strip-track">
+    <span>Raw &amp; Unfiltered</span><span>&#8226;</span>
+    <span>Cold-Extracted</span><span>&#8226;</span>
+    <span>Family-Run Apiary Since 1994</span><span>&#8226;</span>
+    <span>Glass Jars, Never Plastic</span><span>&#8226;</span>
+    <span>Raw &amp; Unfiltered</span><span>&#8226;</span>
+    <span>Cold-Extracted</span><span>&#8226;</span>
+    <span>Family-Run Apiary Since 1994</span><span>&#8226;</span>
+    <span>Glass Jars, Never Plastic</span><span>&#8226;</span>
+  </div>
+</div>
+
+<!-- ============ STORY ============ -->
+<section class="story" id="story">
+  <div class="wrap">
+    <div class="story-img reveal">
+      <img src="https://images.unsplash.com/photo-1471943311424-646960669fbc?q=80&w=800&auto=format&fit=crop" alt="Beekeeper inspecting a honeycomb frame in a wooden hive">
+    </div>
+    <div class="story-copy reveal">
+      <span class="eyebrow">Our Story</span>
+      <h2>Three generations, one apiary, zero shortcuts.</h2>
+      <p>Amber &amp; Comb began in 1994 with two borrowed hives and a stubborn belief that honey should taste like the place it came from. Today, our family still walks the same meadows every dawn, checking on colonies we know by name.</p>
+      <p>We extract cold, strain lightly, and bottle within 48 hours of harvest — so what reaches your table is as close to the comb as honey can get. No blending, no pasteurizing, no shortcuts that trade flavor for shelf life.</p>
+      <p class="signature-line">— The Hollis Family, Beekeepers</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VARIETIES ============ -->
+<section class="varieties" id="varieties">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The Harvest</span>
+      <h2>A jar for every bloom.</h2>
+      <p>Each variety is single-origin — tied to one bloom, one season, one plot of land. Flavor shifts with what the bees found flowering that month.</p>
+    </div>
+    <div class="var-grid">
+      <div class="var-card reveal">
+        <div class="var-img">
+          <span class="var-tag">Best Seller</span>
+          <img src="https://images.unsplash.com/photo-1558642891-54be180ea339?q=80&w=700&auto=format&fit=crop" alt="Jar of wildflower honey">
+        </div>
+        <div class="var-body">
+          <h3>Wildflower Meadow</h3>
+          <p>Bright, floral, and lightly citrus-forward. Our most balanced everyday honey.</p>
+          <div class="var-foot">
+            <div class="price">$14 <span>/ 12oz</span></div>
+            <a href="#" class="var-link">View jar →</a>
+          </div>
+        </div>
+      </div>
+      <div class="var-card reveal">
+        <div class="var-img">
+          <span class="var-tag">Limited</span>
+          <img src="https://images.unsplash.com/photo-1590779033100-9f60a05a013d?q=80&w=700&auto=format&fit=crop" alt="Dark buckwheat honey in a jar">
+        </div>
+        <div class="var-body">
+          <h3>Buckwheat Dark</h3>
+          <p>Deep, malty, almost molasses-like. Bold enough to stand up to strong cheese.</p>
+          <div class="var-foot">
+            <div class="price">$18 <span>/ 12oz</span></div>
+            <a href="#" class="var-link">View jar →</a>
+          </div>
+        </div>
+      </div>
+      <div class="var-card reveal">
+        <div class="var-img">
+          <span class="var-tag">Seasonal</span>
+          <img src="https://images.unsplash.com/photo-1471943311424-646960669fbc?q=80&w=700&auto=format&fit=crop&sat=-20" alt="Clover honey being drizzled with a wooden dipper">
+        </div>
+        <div class="var-body">
+          <h3>Clover Blossom</h3>
+          <p>Delicate and mellow, with a clean sweetness that never overpowers.</p>
+          <div class="var-foot">
+            <div class="price">$13 <span>/ 12oz</span></div>
+            <a href="#" class="var-link">View jar →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS (bee to jar — real sequence) ============ -->
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">From Hive to Table</span>
+      <h2>Four steps. No detours.</h2>
+    </div>
+    <div class="process-track">
+      <div class="p-step reveal">
+        <div class="p-num">01</div>
+        <h4>Forage</h4>
+        <p>Bees gather nectar across 40 acres of unsprayed wildflower meadow.</p>
+      </div>
+      <div class="p-step reveal">
+        <div class="p-num">02</div>
+        <h4>Harvest</h4>
+        <p>Frames are pulled by hand only once fully capped and ripe.</p>
+      </div>
+      <div class="p-step reveal">
+        <div class="p-num">03</div>
+        <h4>Cold-Extract</h4>
+        <p>Spun and strained gently — never heated above hive temperature.</p>
+      </div>
+      <div class="p-step reveal">
+        <div class="p-num">04</div>
+        <h4>Bottle</h4>
+        <p>Jarred within 48 hours and labeled with its exact harvest date.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BENEFITS ============ -->
+<section class="benefits">
+  <div class="comb-bg" style="opacity:0.12;"></div>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Why Raw Matters</span>
+      <h2>Unheated means unchanged.</h2>
+      <p>Pasteurized honey trades nutrients and flavor for shelf appeal. We skip that trade entirely.</p>
+    </div>
+    <div class="b-grid">
+      <div class="b-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 4 6v6c0 5 3.4 8.4 8 10 4.6-1.6 8-5 8-10V6l-8-4Z"/></svg>
+        <h4>Enzymes Intact</h4>
+        <p>Cold extraction preserves the natural enzymes heat processing destroys.</p>
+      </div>
+      <div class="b-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21c-4.5-3-8-6.5-8-10.5A5.5 5.5 0 0 1 9.5 5c1.6 0 2.5 1 2.5 1s.9-1 2.5-1A5.5 5.5 0 0 1 20 10.5C20 14.5 16.5 18 12 21Z"/></svg>
+        <h4>True Pollen Trace</h4>
+        <p>Unfiltered means the local pollen naturally present stays in the jar.</p>
+      </div>
+      <div class="b-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h18M12 3v18" stroke-linecap="round"/></svg>
+        <h4>Traceable Origin</h4>
+        <p>Every jar is dated and tied to the exact meadow it was harvested from.</p>
+      </div>
+      <div class="b-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8M8 16h5"/></svg>
+        <h4>No Additives</h4>
+        <p>Just honey. No corn syrup, no fillers, no blending with imported stock.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testimonials" id="reviews">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">Tasting Notes</span>
+      <h2>What people say after the first spoonful.</h2>
+    </div>
+    <div class="t-grid">
+      <div class="t-card reveal">
+        <div class="stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1L12 2z"/></svg>
+        </div>
+        <p class="quote">"The buckwheat honey tastes nothing like what I grew up calling honey. Deep, almost smoky. My tea routine changed overnight."</p>
+        <div class="t-person">
+          <div class="t-avatar"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=200&auto=format&fit=crop" alt="Portrait of Maria D."></div>
+          <div><div class="t-name">Maria D.</div><div class="t-role">Home Baker</div></div>
+        </div>
+      </div>
+      <div class="t-card reveal">
+        <div class="stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1L12 2z"/></svg>
+        </div>
+        <p class="quote">"You can actually see the crystallization pattern change jar to jar — that's how I knew this was the real, unfiltered thing."</p>
+        <div class="t-person">
+          <div class="t-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Portrait of James O."></div>
+          <div><div class="t-name">James O.</div><div class="t-role">Café Owner</div></div>
+        </div>
+      </div>
+      <div class="t-card reveal">
+        <div class="stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 7 1-5 4.9 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5-4.9 7-1L12 2z"/></svg>
+        </div>
+        <p class="quote">"I've ordered from three 'raw honey' brands. This is the only one that actually crystallizes like it should. Subscribing for good."</p>
+        <div class="t-person">
+          <div class="t-avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" alt="Portrait of Priya S."></div>
+          <div><div class="t-name">Priya S.</div><div class="t-role">Nutritionist</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER / CTA ============ -->
+<section class="cta" id="cta">
+  <div class="comb-bg" style="opacity:0.15;"></div>
+  <div class="wrap">
+    <span class="eyebrow" style="color:#FFF6E4;">Stay in the Loop</span>
+    <h2>Know the moment each new harvest is jarred.</h2>
+    <p>We send one email per harvest — never more. Early access to limited batches like Buckwheat Dark.</p>
+    <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Subscribed ✓';">
+      <input type="email" placeholder="you@email.com" required>
+      <button type="submit">Notify Me</button>
+    </form>
+    <p class="form-note">No spam. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 20 6.5v11L12 22 4 17.5v-11L12 2Z" stroke="#E2A227" stroke-width="1.4"/><circle cx="12" cy="12" r="3.4" fill="#E2A227"/></svg>
+          Amber &amp; Comb
+        </div>
+        <p class="foot-about">A three-generation family apiary producing raw, single-origin honey — harvested, extracted, and bottled by hand.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Shop</h5>
+        <a href="#varieties">Wildflower Meadow</a>
+        <a href="#varieties">Buckwheat Dark</a>
+        <a href="#varieties">Clover Blossom</a>
+        <a href="#">Gift Sets</a>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="#story">Our Story</a>
+        <a href="#process">Our Process</a>
+        <a href="#">Sustainability</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Visit</h5>
+        <a href="#">Hollis Family Apiary</a>
+        <a href="#">Route 9, Millbrook</a>
+        <a href="#">hello@amberandcomb.com</a>
+        <a href="#">+1 (555) 018‑2244</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Amber &amp; Comb Apiary. All rights reserved.</span>
+      <div class="socials">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9Z"/></svg></a>
+        <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 17c1-3 1.5-5.5 1.5-7A2.5 2.5 0 0 1 13 7.5c1.3 0 2.2 1 2.2 2.3 0 1.6-1 3.9-1.6 5.1-.4 1 .3 1.8 1.2 1.8 1.5 0 2.6-1.9 2.6-4.2 0-2.2-1.6-3.9-4.1-3.9-2.8 0-4.5 2.1-4.5 4.2 0 .8.2 1.4.6 1.8"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // burger menu toggle
+  const burger = document.querySelector('.burger');
+  const navLinks = document.querySelector('.nav-links');
+  burger.addEventListener('click', () => {
+    const open = navLinks.style.display === 'flex';
+    navLinks.style.display = open ? 'none' : 'flex';
+    navLinks.style.cssText += open ? '' : 'position:fixed;top:64px;left:0;right:0;background:#FFF6E4;flex-direction:column;padding:24px 32px;gap:18px;border-bottom:1px solid rgba(43,25,4,0.14);';
+  });
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
